@@ -1,8 +1,10 @@
+
 import express from 'express';
 import { engine } from 'express-handlebars';
 import morgan from 'morgan';
 import path from 'path';
 import {__dirname} from './dirname_format.js'
+import { route } from './router/index.js';
 const app = express();
 const port = 3000;
 //Dinh nghia route
@@ -20,10 +22,12 @@ app.set('view engine', 'hbs');
 app.set('views',path.join(__dirname,'resources/views'))
 //http logger/ log nhung request tu client
 app.use(morgan('combined'))
-app.get("/", (req, res) => res.render('home'));
-app.get("/tin-tuc", (req, res) => res.render('news'));
-app.get("/search", (req, res) => res.render('search'));
-app.post("/search", (req, res) => res.send(''));
+//Routes
+route(app)
+//app.get("/", (req, res) => res.render('home'));
+// app.get("/tin-tuc", (req, res) => res.render('news'));
+// app.get("/search", (req, res) => res.render('search'));
+// app.post("/search", (req, res) => res.send(''));
 //app.METHOD(PATH,HANDLER)
 /**
  * PATH is s path on the server
@@ -33,6 +37,7 @@ app.post("/search", (req, res) => res.send(''));
  * server thi khi do handler se xac nhan va tra ve response
  * bien req se cho thay nhung value lien quan den request
  * gui di cua client
+ * Action ----> Dispatcher -----> Function handler
  */
 app.use(express.urlencoded({
   extended: true
