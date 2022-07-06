@@ -1,29 +1,31 @@
-
 import express from 'express';
 import { engine } from 'express-handlebars';
 import morgan from 'morgan';
 import path from 'path';
-import {__dirname} from './dirname_format.js'
+import { __dirname } from './dirname_format.js';
 import { route } from './router/index.js';
 const app = express();
 const port = 3000;
 //Dinh nghia route
 /**
- * Neu thay doi "/" thanh "trang chu" thi khi chay localhost phai them 
+ * Neu thay doi "/" thanh "trang chu" thi khi chay localhost phai them
  * nhu sau  http://localhost:${port}/trangchu
  */
 //xu ly static file
-app.use(express.static(path.join(__dirname,'resources/public')))
+app.use(express.static(path.join(__dirname, 'resources/public')));
 //template engine
-app.engine('hbs', engine({
-  extname:'.hbs'
-}));
+app.engine(
+  'hbs',
+  engine({
+    extname: '.hbs',
+  }),
+);
 app.set('view engine', 'hbs');
-app.set('views',path.join(__dirname,'resources/views'))
+app.set('views', path.join(__dirname, 'resources/views'));
 //http logger/ log nhung request tu client
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 //Routes
-route(app)
+route(app);
 //app.get("/", (req, res) => res.render('home'));
 // app.get("/tin-tuc", (req, res) => res.render('news'));
 // app.get("/search", (req, res) => res.render('search'));
@@ -39,10 +41,12 @@ route(app)
  * gui di cua client
  * Action ----> Dispatcher -----> Function handler
  */
-app.use(express.urlencoded({
-  extended: true
-})) //form data
-app.use(express.json()) //code javascript
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+); //form data
+app.use(express.json()); //code javascript
 //XMLHttpRequest, fetch, axios
 //middleware xu ly form data (config de body ko undefined)
 //listen local host tren browser
@@ -74,7 +78,7 @@ app.listen(port, () => {
  * }
  * - no ton tai trong moi method voi QP vi dac diem cua no la
  * truyen tren url
- * - thuong duoc su dung voi get method 
+ * - thuong duoc su dung voi get method
  */
 /**
  * Form default behavior
