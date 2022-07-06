@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/linhnguyen-js66/nodejs_blog#readme",
   "lint-staged":{
-     "\"src/**/*.{json,js,scss}\"":"prettier --single-quote --trailing-comma all --write"
+     "src/**/*.{json,js,scss}":"prettier --single-quote --trailing-comma all --write"
   },
   "husky":{
     "hooks": {
