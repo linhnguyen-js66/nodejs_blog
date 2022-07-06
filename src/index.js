@@ -4,8 +4,10 @@ import morgan from 'morgan';
 import path from 'path';
 import { __dirname } from './dirname_format.js';
 import { route } from './router/index.js';
+import connect from './config/db/index.js';
 const app = express();
 const port = 3000;
+connect();
 //Dinh nghia route
 /**
  * Neu thay doi "/" thanh "trang chu" thi khi chay localhost phai them
@@ -21,7 +23,7 @@ app.engine(
   }),
 );
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources','views'));
 //http logger/ log nhung request tu client
 app.use(morgan('combined'));
 //Routes
@@ -51,7 +53,7 @@ app.use(express.json()); //code javascript
 //middleware xu ly form data (config de body ko undefined)
 //listen local host tren browser
 app.listen(port, () => {
-  console.log(`Example app listening on port at http://localhost:${port}`);
+  console.log(`App listening on port at http://localhost:${port}`);
 });
 /**Nodemon se tu cap nhat ung dung ma khong can build lai server */
 /**Template engines */
