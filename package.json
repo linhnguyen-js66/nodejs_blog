@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "start": "nodemon --inspect src/index.js",
     "watch": "node-sass --watch src/resources/scss/ --output src/resources/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,7 +25,7 @@
   },
   "homepage": "https://github.com/linhnguyen-js66/nodejs_blog#readme",
   "lint-staged":{
-     "src/**/*.{json,js,scss}":"prettier --single-quote --trailing-comma all --write"
+     "\"src/**/*.{json,js,scss}\"":"prettier --single-quote --trailing-comma all --write"
   },
   "husky":{
     "hooks": {
