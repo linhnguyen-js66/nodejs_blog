@@ -1,10 +1,11 @@
-import express from 'express';
-import { engine } from 'express-handlebars';
-import morgan from 'morgan';
-import path from 'path';
-import { __dirname } from './dirname_format.js';
-import { route } from './router/index.js';
-import connect from './config/db/index.js';
+import express from "express";
+import { engine } from "express-handlebars";
+import morgan from "morgan";
+import path from "path";
+import { __dirname } from "./dirname_format.js";
+import { route } from "./router/index.js";
+import connect from "./config/db/index.js";
+import bodyParser from "body-parser";
 const app = express();
 const port = 3000;
 connect();
@@ -14,20 +15,25 @@ connect();
  * nhu sau  http://localhost:${port}/trangchu
  */
 //xu ly static file
-app.use(express.static(path.join(__dirname, 'resources/public')));
+app.use(express.static(path.join(__dirname, "resources/public")));
 //template engine
 app.engine(
-  'hbs',
+  "hbs",
   engine({
-    extname: '.hbs',
-  }),
+    extname: ".hbs",
+    helpers: {
+      sum: (a, b) => {
+        return a + b;
+      },
+    },
+  })
 );
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources','views'));
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "resources", "views"));
 //http logger/ log nhung request tu client
-app.use(morgan('combined'));
+app.use(morgan("combined"));
 //Routes
-route(app);
+
 //app.get("/", (req, res) => res.render('home'));
 // app.get("/tin-tuc", (req, res) => res.render('news'));
 // app.get("/search", (req, res) => res.render('search'));
@@ -43,18 +49,18 @@ route(app);
  * gui di cua client
  * Action ----> Dispatcher -----> Function handler
  */
-app.use(
-  express.urlencoded({
-    extended: true,
-  }),
-); //form data
-app.use(express.json()); //code javascript
+/**CHO NAY NOTE LAI */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //form data
+//code javascript
+/*** */
 //XMLHttpRequest, fetch, axios
 //middleware xu ly form data (config de body ko undefined)
 //listen local host tren browser
 app.listen(port, () => {
   console.log(`App listening on port at http://localhost:${port}`);
 });
+route(app);
 /**Nodemon se tu cap nhat ung dung ma khong can build lai server */
 /**Template engines */
 /**

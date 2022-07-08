@@ -4,9 +4,10 @@ const SiteController = {
   // GET / news
   index: (req, res, next) => {
     CoursesModel.find({})
-      .then((courses) =>
-        res.render("home", { courses: formatArraytoObject(courses) })
-      )
+      .then((courses) => {
+        res.render("home", { courses: formatArraytoObject(courses) });
+        //res.send(courses);
+      })
       .catch(next);
   },
   search: (req, res) => {
