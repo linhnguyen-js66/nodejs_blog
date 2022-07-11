@@ -7,9 +7,9 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Trình độ</th>
+                <th scope="col">Thời gian xóa</th>
             </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
-                <td>{{this.createdAt}}</td>
+                <td>{{this.deletedAt}}</td>
                 <td>
                     <a href="#" class="btn-restore" data-id="{{this._id}}">Khôi phục</button>
                 </td>

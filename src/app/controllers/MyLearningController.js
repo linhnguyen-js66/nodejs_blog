@@ -3,12 +3,14 @@ import { formatArraytoObject } from "../../utils/mongoose.config.js";
 const LearningController = {
   //ơGET]
   storedCourses(req, res, next) {
-    CoursesModel.find({})
-      .then((courses) =>
+    //destructering js
+    Promise.all([CoursesModel.find({}), CoursesModel.countDocumentsDeleted()])
+      .then(([courses, deletedCount]) => {
         res.render("learning/stored-course", {
           courses: formatArraytoObject(courses),
-        })
-      )
+          deletedCount,
+        });
+      })
       .catch(next);
   },
   trashCourses: (req, res, next) => {
