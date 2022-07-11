@@ -1,8 +1,8 @@
 <div class="mt-4">
-    <h3>KHOA HOC</h3>
-    <div class="mt-4">
-        <a href="/my-learning/thung-rac/khoa-hoc">Thùng rác</a>
+    <div>
+        <a href="/my-learning/luu-tru">Về lại danh sách</a>
     </div>
+    <h3 class="mt-4">Thùng trác</h3>
     <table class="table mt-4">
         <thead>
             <tr>
@@ -20,18 +20,17 @@
                 <td>{{this.level}}</td>
                 <td>{{this.createdAt}}</td>
                 <td>
-                    <a href="/khoa-hoc/{{this._id}}/chinh-sua" class="btn btn-link">Sửa</button>
+                    <a href="#" class="btn-restore" data-id="{{this._id}}">Khôi phục</button>
                 </td>
                 <td>
                     <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}"
-                        data-target="#delete-course">Xóa</button>
+                        data-target="#delete-course">Xóa vĩnh viễn</button>
                 </td>
             </tr>
             {{else}}
             <tr>
                 <td colspan="5" class="text-center">
-                    Bạn chưa đăng khóa học nào
-                    <a href="/khoa-hoc/tao-moi">Đăng khóa học</a>
+                    Thùng rác còn trống
                 </td>
             </tr>
             {{/each}}
@@ -59,15 +58,16 @@
         </div>
     </div>
 </div>
-{{!---Delete hidden form---}}
-<form method="POST" name="delete-form">
-
-</form>
+{{!---Delete---}}
+<form method="POST" name="delete-form"></form>
+<form method="POST" name="restore-form"></form>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         let courseId
         let deleteForm = document.forms['delete-form']
+        let restoreForm = document.forms['restore-form']
         let btnDeleteCourse = document.getElementById("btn-delete-course");
+        let restoreBtn = $('.btn-restore')
 
         $('#delete-course').on('show.bs.modal', function (event) {
             let button = $(event.relatedTarget) // Button that triggered the modal
@@ -76,8 +76,15 @@
         })
 
         btnDeleteCourse.onclick = () => {
-            deleteForm.action = '/khoa-hoc/' + courseId + '?_method=DELETE'
+            deleteForm.action = '/khoa-hoc/' + courseId + '/force?_method=DELETE'
             deleteForm.submit();
         }
+
+        restoreBtn.click(function (e) {
+            e.preventDefault();
+            const id = $(this).data('id')
+            restoreForm.action = '/khoa-hoc/' + id + '/khoi-phuc?_method=PATCH'
+            restoreForm.submit();
+        })
     })
 </script>

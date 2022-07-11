@@ -5,7 +5,7 @@ import path from "path";
 import { __dirname } from "./dirname_format.js";
 import { route } from "./router/index.js";
 import connect from "./config/db/index.js";
-import bodyParser from "body-parser";
+import methodOverride from "method-override";
 const app = express();
 const port = 3000;
 connect();
@@ -52,6 +52,7 @@ app.use(morgan("combined"));
 /**CHO NAY NOTE LAI */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //form data
+app.use(methodOverride('_method'))
 //code javascript
 /*** */
 //XMLHttpRequest, fetch, axios

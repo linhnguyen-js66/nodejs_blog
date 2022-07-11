@@ -4,9 +4,20 @@ const LearningController = {
   //ơGET]
   storedCourses(req, res, next) {
     CoursesModel.find({})
-      .then((courses) => res.render("learning/stored-course",{
-        courses: formatArraytoObject(courses)
-      }))
+      .then((courses) =>
+        res.render("learning/stored-course", {
+          courses: formatArraytoObject(courses),
+        })
+      )
+      .catch(next);
+  },
+  trashCourses: (req, res, next) => {
+    CoursesModel.findDeleted({})
+      .then((courses) =>
+        res.render("learning/trash-course", {
+          courses: formatArraytoObject(courses),
+        })
+      )
       .catch(next);
   },
 };

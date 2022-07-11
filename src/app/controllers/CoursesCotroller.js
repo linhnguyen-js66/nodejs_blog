@@ -18,14 +18,36 @@ const CoursesController = {
     const course = new CoursesModel(formData);
     course
       .save()
-      .then(() => res.redirect("/"))
-      .catch(err=>{
-        
-      });
+      .then(() => res.redirect("/my-learning/luu-tru"))
+      .catch((err) => {});
   },
-  edit: (req,res) => {
-    res.render("courses/edit")
-  }
+  edit: (req, res) => {
+    CoursesModel.findById(req.params.id).then((course) =>
+      res.render("courses/edit", {
+        course: formatObject(course),
+      })
+    );
+  },
+  update: (req, res, next) => {
+    CoursesModel.updateOne({ _id: req.params.id }, req.body)
+      .then(() => res.redirect("/my-learning/luu-tru"))
+      .catch(next);
+  },
+  delete: (req, res, next) => {
+    CoursesModel.delete({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  },
+  forceDelete: (req, res, next) => {
+    CoursesModel.deleteOne({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  },
+  restore: (req, res, next) => {
+    CoursesModel.restore({ _id: req.params.id })
+      .then(() => res.redirect("back"))
+      .catch(next);
+  },
 };
 
 export default CoursesController;
