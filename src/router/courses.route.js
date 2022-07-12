@@ -5,6 +5,7 @@ export const courseRouter = express.Router();
 courseRouter.get("/tao-moi", coursesController.create);
 courseRouter.post("/luu-tru", coursesController.store);
 courseRouter.get("/:id/chinh-sua", coursesController.edit);
+courseRouter.post("/handle-form-actions", coursesController.handleFormActions)
 courseRouter.put("/:id", coursesController.update);
 courseRouter.patch("/:id/khoi-phuc", coursesController.restore);
 courseRouter.delete("/:id", coursesController.delete);

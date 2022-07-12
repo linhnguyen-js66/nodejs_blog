@@ -48,6 +48,19 @@ const CoursesController = {
       .then(() => res.redirect("back"))
       .catch(next);
   },
+  // [POST] /courses/handle-form-actions
+  handleFormActions: (req, res, next) => {
+    switch (req.body.action) {
+      case "delete":
+        // do req.body.courseIds la mang
+        CoursesModel.delete({ _id: {$in: req.body.courseIds} })
+        .then(() => res.redirect("back"))
+        .catch(next);
+        break;
+      default:
+        res.josn({ message: "action invalid" });
+    }
+  },
 };
 
 export default CoursesController;
