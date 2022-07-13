@@ -19,7 +19,8 @@ const CoursesController = {
     course
       .save()
       .then(() => res.redirect("/my-learning/luu-tru"))
-      .catch((err) => {});
+      .catch(next);
+      //upsert
   },
   edit: (req, res) => {
     CoursesModel.findById(req.params.id).then((course) =>

@@ -1,10 +1,13 @@
 import { CoursesModel } from "../models/model.courses.js";
 import { formatArraytoObject } from "../../utils/mongoose.config.js";
 const LearningController = {
-  //ơGET]
+  //[GET]
   storedCourses(req, res, next) {
     //destructering js
-    Promise.all([CoursesModel.find({}), CoursesModel.countDocumentsDeleted()])
+    Promise.all([
+      CoursesModel.find({}).sortable(req),
+      CoursesModel.countDocumentsDeleted(),
+    ])
       .then(([courses, deletedCount]) => {
         res.render("learning/stored-course", {
           courses: formatArraytoObject(courses),

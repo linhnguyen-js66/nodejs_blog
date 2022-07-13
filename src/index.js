@@ -6,6 +6,8 @@ import { __dirname } from "./dirname_format.js";
 import { route } from "./router/index.js";
 import connect from "./config/db/index.js";
 import methodOverride from "method-override";
+import { sortMiddleware } from "./app/middlewares/SortMiddleware.js";
+import { handleBarsHelper } from "./helper/handlebars.js";
 const app = express();
 const port = 3000;
 connect();
@@ -21,11 +23,7 @@ app.engine(
   "hbs",
   engine({
     extname: ".hbs",
-    helpers: {
-      sum: (a, b) => {
-        return a + b;
-      },
-    },
+    helpers: handleBarsHelper,
   })
 );
 app.set("view engine", "hbs");
@@ -52,7 +50,9 @@ app.use(morgan("combined"));
 /**CHO NAY NOTE LAI */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //form data
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
+//custom middleware
+app.use(sortMiddleware);
 //code javascript
 /*** */
 //XMLHttpRequest, fetch, axios

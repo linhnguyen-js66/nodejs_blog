@@ -21,9 +21,15 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Tên</th>
-                <th scope="col">Trình độ</th>
-                <th scope="col">Thời gian tạo</th>
+                <th scope="col">Tên
+                    {{{sorttable 'name' _sort}}}
+                </th>
+                <th scope="col">Trình độ
+                    {{{sorttable 'level' _sort}}}
+                </th>
+                <th scope="col">Thời gian tạo
+                    {{{sorttable 'createdAt' _sort}}}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +40,7 @@
                         <input type="checkbox" class="form-check-input" name="courseIds[]" value="{{this._id}}">
                     </div>
                 </td>
-                <th scope="row">{{sum @index 1}}</th>
+                <th scope="row">{{this._id}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
                 <td>{{this.createdAt}}</td>
@@ -119,7 +125,7 @@
             function renderCheckAllSubmitBtn() {
                 let checkedCount = $('input[name="courseIds[]"]:checked').length;
                 if (checkedCount > 0) {
-                    checkAllSubmitBtn.attr('disabled',false)
+                    checkAllSubmitBtn.attr('disabled', false)
                 } else {
                     checkAllSubmitBtn.attr('disabled', true)
                 }
